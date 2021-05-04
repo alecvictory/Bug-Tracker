@@ -1,10 +1,10 @@
 <template>
-  <div class="note bg-white">
+  <div class="note bg-white mb-4">
     <tr>
       <div>
         <td>    {{ noteProp.body }}</td>
         {{ noteProp.creator.name }}
-        <img :src="noteProp.creator.picture" alt="">
+        <img :src="noteProp.creator.picture" class="rounded-circle img-sm" alt="">
       </div>
       <div>
         <button @click="deleteNote" class="btn btn-danger">

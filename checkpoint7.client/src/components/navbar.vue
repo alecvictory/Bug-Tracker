@@ -2,11 +2,9 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img
-          alt="logo"
-          src="../assets/img/cw-logo.png"
-          height="45"
-        />
+        <i class="fa fa-bug" style="font-size:64px">
+          Bug Out
+        </i>
       </div>
     </router-link>
     <button

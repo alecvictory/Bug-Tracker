@@ -1,60 +1,67 @@
 <template>
-  <div v-if="state.loading===true">
-    ...loading
-  </div>
-  <div v-else class="bug container-fluid">
-    <div class="row">
-      <div class="col card-title text-center">
-        <h1 class="m-5">
-          <div class="">
-            {{ state.activeBug.creator.name }}
-            <img :src="state.activeBug.creator.picture" alt="">
-            <div>
-              <button @click="deleteBug" class="btn btn-danger">
-                <i class="" aria-hidden="true">OPEN/CLOSE BUG</i>
-              </button>
+  <div class="container-fluid bg-dark">
+    <div class="text-white text-center" v-if="state.loading===true">
+      <h1>
+        ...loading
+      </h1>
+    </div>
+    <div v-else class="bug">
+      <div class="row">
+        <div class="col card-title text-center">
+          <h1 class="m-5 text-white">
+            <div class="">
+              {{ state.activeBug.creator.name }}
+              <img :src="state.activeBug.creator.picture" class="rounded-circle" alt="">
+              <div v-if="state.activeBug.closed === false">
+                <button @click="deleteBug" class="btn btn-danger">
+                  <i class="" aria-hidden="true">OPEN/CLOSE BUG</i>
+                </button>
+              </div>
+              <div v-else></div>
             </div>
+            Title: {{ state.activeBug.title }}
+          </h1>
+          <div class="">
+            <h3 class="text-white">
+              <p>Bug Status:</p>
+              <span v-if="state.activeBug.closed" class="text-danger">closed</span>
+              <span v-else class="text-success">open</span>
+            </h3>
           </div>
-          {{ state.activeBug.title }}
-        </h1>
-        <div class="">
-          <h3>
-            <p>Bug Status:</p>
-            <span v-if="state.activeBug.closed" class="text-danger">closed</span>
-            <span v-else class="text-success">open</span>
-          </h3>
-        </div>
-        <div>
-          <form @submit.prevent="editBug">
-            <input class="px-2" type="'text" v-model="state.newBug.description" placeholder="Edit Description...">
+          <div v-if="state.activeBug.closed === false">
+            <form @submit.prevent="editBug">
+              <input class="px-2" type="'text" v-model="state.newBug.description" placeholder="Edit Description...">
+              <button type="submit" class="btn btn-success m-2 btn-sm">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </form>
+          </div>
+          <div v-else>
+          </div>
+          <h2>
+            <div class="card bg-white">
+              Bug Description: {{ state.activeBug.description }}
+            </div>
+          </h2>
+          <form @submit.prevent="addNote">
+            <input class="px-2" type="'text" v-model="state.newNote.body" placeholder="Create Note...">
             <button type="submit" class="btn btn-success m-2 btn-sm">
               <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
           </form>
         </div>
-        <h2>
-          <div class="card bg-white">
-            {{ state.activeBug.description }}
-          </div>
-        </h2>
-        <form @submit.prevent="addNote">
-          <input class="px-2" type="'text" v-model="state.newNote.body" placeholder="Create Note...">
-          <button type="submit" class="btn btn-success m-2 btn-sm">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-          </button>
-        </form>
       </div>
-    </div>
-    <div class="row justify-content-around">
-      <table class="table table-striped">
-        <thead>
-          <tbody>
-          </tbody>
-        </thead>
-        <tr>
-          <Note v-for="note in state.notes" :key="note.id" :note-prop="note" />
-        </tr>
-      </table>
+      <div class="row justify-content-around">
+        <table class="table table-striped">
+          <thead>
+            <tbody>
+            </tbody>
+          </thead>
+          <tr>
+            <Note v-for="note in state.notes" :key="note.id" :note-prop="note" />
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 </template>

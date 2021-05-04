@@ -1,13 +1,13 @@
 <template>
   <div class="container-fluid">
-    <div>
+    <div class="d-flex justify-content-center">
       <form @submit.prevent="addBug">
-        <input type="'text" maxlength="20" v-model="state.newBug.title" placeholder="New Bug Title">
-        <input type="'text" maxlength="100" v-model="state.newBug.description" placeholder="Description">
+        <input type="'text" v-model="state.newBug.title" placeholder="New Bug Title">
+        <input type="'text" v-model="state.newBug.description" placeholder="Description">
         <button type="submit" class="btn btn-success">
           create bug
         </button>
-        <div class="d-flex">
+        <div class="d-flex justify-content-right">
           <form>
             <!-- -------------vv this makes the checkbox infinitely flip------- -->
             <input @click="state.checkbox = !state.checkbox" type="checkbox">
@@ -35,10 +35,10 @@
           </tbody>
         </thead>
         <tr>
-          <div v-if="state.checkbox === true">
+          <div class="mb-2" v-if="state.checkbox === true">
             <Bug v-for="bug in state.bugs" :key="bug.id" :bug-prop="bug" />
           </div>
-          <div v-else>
+          <div class="mb-2" v-else>
             <Bug v-for="bug in state.filtered" :key="bug.id" :bug-prop="bug" />
           </div>
         </tr>
